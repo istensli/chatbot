@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+    <div id="page">
+        <input type="text" id="input-tag">
+        <button id="ok" onclick="ok()">OK</button>
+        <div id="output-div"></div>
+    </div>
+
+    <script>
+        let inputTag = document.getElementById('input-tag');
+        let outputDiv = document.getElementById('output-div');
+
+        let inputString = "";
+        let answerString = "";
+        
+        let timeout;
+       
+       
+
+
+        function ok(){
+
+            timeout = setTimeout(makeAnswer, 3000);
+
+            
+
+        }
+        function makeAnswer(){
+            
+            inputString = String(inputTag.value);
+            answerString = interpretation(inputString.toLowerCase());
+
+
+            showAnswer();
+        }
+
+        function interpretation(inputValue){
+            if (inputValue.includes('weather') && inputValue.includes('today')){
+                return getWeather('today');
+            }
+            else if(inputValue.includes('weather') && inputValue.includes('tomorrow')){
+                return getWeather('tomorrow');
+            }
+            else if(inputValue.includes('how') && inputValue.includes('are') && inputValue.includes('you') && inputValue.includes('today')){
+                return getMood('you', 'today');
+
+            }
+            else if(inputValue.includes('how') && inputValue.includes('are') && inputValue.includes('you') && inputValue.includes('tomorrow')){
+                return getMood('you', 'tomorrow');
+
+            }
+            else if(inputValue.includes('how') && inputValue.includes('am') && inputValue.includes('I') && inputValue.includes('today')){
+                return getMood('I', 'today');
+
+            }
+            else if(inputValue.includes('how') && inputValue.includes('am') && inputValue.includes('I') && inputValue.includes('tomorrow')){
+                return getMood('I', 'tomorrow');
+
+            }
+            else if(inputValue.includes('how') && inputValue.includes('are') && inputValue.includes('you')){
+                return getMood('you');
+
+            }
+            else{
+                return "Sorry, could not interpret";
+            }
+
+        }
+
+        function showAnswer(){
+            outputDiv.innerHTML += /*HTML*/`<p>${answerString}</p><br />`;
+        }
+
+        function getWeather(day){
+            if (day.toLowerCase() == 'today'){
+                return "The weather is foggy today";
+            }
+            else if(day.toLowerCase() == 'tomorrow'){
+                return "It will be sunny tomorrow";
+            }
+            else{
+                return "I have no weather forecast for this day";
+            }
+        }
+
+        function getMood(person, day){
+            if(person == 'you'){
+                return  `I am fine ${day}`;
+            }
+            else if(person == 'I'){
+                return `You are fine ${day}`;
+            }
+        }
+
+        function getMood(person){
+            if(person == 'you'){
+                return  `I am fine`;
+            }
+            else if(person == 'I'){
+                return `You are fine`;
+            }
+        }
+
+
+
+
+
+
+
+      
+    </script>
+
+    
+</body>
+</html>
